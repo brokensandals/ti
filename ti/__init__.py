@@ -242,6 +242,11 @@ def action_status():
         green(current['name']), diff))
 
 
+def action_status_short():
+    if is_working():
+        print(store.load()['work'][-1]['name'])
+
+
 def action_log(period):
     data = store.load()
     work = data['work'] + data['interrupt_stack']
@@ -427,6 +432,10 @@ def parse_args(argv=sys.argv):
 
     elif head in ['s', 'status']:
         fn = action_status
+        args = {}
+
+    elif head in ['ss', 'status-short']:
+        fn = action_status_short
         args = {}
 
     elif head in ['l', 'log']:
